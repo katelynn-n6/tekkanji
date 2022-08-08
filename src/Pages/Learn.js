@@ -7,7 +7,7 @@ function Learn() {
   const { lesson, level, kanji, kanjiStr } = state;
 
   let navigate = useNavigate();
-  const navigateHome = () => navigate("/");
+  const navigateHome = () => navigate("/tekkanji");
 
   const [index, setIndex] = useState(0);
 

@@ -11,7 +11,7 @@ function App() {
 
   let navigate = useNavigate();
   const moveAbout = () => {
-    navigate("about");
+    navigate("/tekkanji/about");
   };
 
   return (
