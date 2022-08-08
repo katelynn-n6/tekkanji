@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/tekkanji/static/css/main.b4967e8d.css",
+    "main.js": "/tekkanji/static/js/main.21bfe7e1.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/tekkanji/static/js/787.c4e7f8f9.chunk.js",
+    "index.html": "/tekkanji/index.html",
+    "main.b4967e8d.css.map": "/tekkanji/static/css/main.b4967e8d.css.map",
+    "main.21bfe7e1.js.map": "/tekkanji/static/js/main.21bfe7e1.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/tekkanji/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b4967e8d.css",
+    "static/js/main.21bfe7e1.js"
+  ]
+}
