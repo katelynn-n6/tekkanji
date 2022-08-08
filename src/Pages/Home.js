@@ -189,7 +189,7 @@ function Home() {
 
   function Redirect() {
     if (lor === 1) {
-      navigate("/learn", {
+      navigate("/tekkanji/learn", {
         state: {
           lesson: lesson,
           level: level,
@@ -199,7 +199,7 @@ function Home() {
       });
       console.log("going to learn :D");
     } else if (lor === 2) {
-      navigate("/review", {
+      navigate("/tekkanji/review", {
         state: {
           lesson: lesson,
           level: level,

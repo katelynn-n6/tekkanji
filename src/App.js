@@ -23,10 +23,10 @@ function App() {
         </div>
 
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/learn" element={<Learn />} />
-          <Route path="/review" element={<Review />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/tekkanji" element={<Home />} />
+          <Route path="/tekkanji/learn" element={<Learn />} />
+          <Route path="/tekkanji/review" element={<Review />} />
+          <Route path="/tekkanji/about" element={<About />} />
         </Routes>
       </div>
       <div id="about" className="about">

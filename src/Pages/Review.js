@@ -1,11 +1,11 @@
 import React from "react";
 
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 
 function Review() {
   const { state } = useLocation();
-  const { lesson, level, kanji, kanjiStr } = state;
+  // const { lesson, level, kanji, kanjiStr } = state;
 
   let navigate = useNavigate();
   const navigateHome = () => navigate("/");
