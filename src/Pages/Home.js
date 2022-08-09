@@ -27,6 +27,7 @@ function Home() {
         url: "/kanji",
         params: { kanji: encodeURI(kanjiArr[i]) },
       };
+      console.log("we half-did it");
 
       axios
         .request(options)
