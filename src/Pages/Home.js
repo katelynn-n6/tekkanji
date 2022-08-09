@@ -21,7 +21,7 @@ function Home() {
     for (let i = 0; i < kanjiArr.length; i++) {
       const options = {
         method: "GET",
-        url: "//localhost:8000/kanji",
+        url: `${process.env.REACT_APP_URL}/kanji`,
         params: { kanji: encodeURI(kanjiArr[i]) },
       };
 
