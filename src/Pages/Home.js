@@ -15,7 +15,7 @@ function Home() {
 
   const [kanjiReal, setKanjiReal] = useState([]);
 
-  const PORT = process.env.PORT || 8000;
+  //const PORT = process.env.PORT || 8000;
 
   const getKanji = () => {
     let newReal = [];
@@ -23,7 +23,8 @@ function Home() {
     for (let i = 0; i < kanjiArr.length; i++) {
       const options = {
         method: "GET",
-        url: `${process.env.REACT_APP_URL}:${PORT}/kanji`,
+        /* `${process.env.REACT_APP_URL}:${PORT} */
+        url: "http://localhost:8000/kanji",
         params: { kanji: encodeURI(kanjiArr[i]) },
       };
 
