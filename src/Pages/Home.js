@@ -15,7 +15,7 @@ function Home() {
 
   const [kanjiReal, setKanjiReal] = useState([]);
 
-  const PORT = 8000 || process.env.PORT;
+  const PORT = process.env.PORT || 8000;
 
   const getKanji = () => {
     let newReal = [];
