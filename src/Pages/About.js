@@ -16,7 +16,12 @@ function About() {
       <h3>about</h3>
       <div className="about-info">
         <div>
-          <p>built by Katelynn Nguyen</p>
+          <p>
+            {"built by "}
+            <a href="https://github.com/katelynn-n6/tekkanji">
+              Katelynn Nguyen
+            </a>
+          </p>
           <p>
             {"supported by the "}
             <a href="https://app.kanjialive.com/api/docs">KanjiAlive API</a>
