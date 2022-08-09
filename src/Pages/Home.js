@@ -6,6 +6,12 @@ import axios from "axios";
 
 //
 
+if (window.location.origin === "http://localhost:3000") {
+  axios.defaults.baseURL = "http://127.0.0.1:8000"; // development address
+} else {
+  axios.defaults.baseURL = window.location.origin; // production address
+}
+
 function Home() {
   const [lessons, setLessons] = useState([]);
   const [level, setLevel] = useState(0);
@@ -24,7 +30,7 @@ function Home() {
       const options = {
         method: "GET",
         /* `${process.env.REACT_APP_URL}:${PORT} */
-        url: "http://localhost:8000/kanji",
+        url: "/kanji",
         params: { kanji: encodeURI(kanjiArr[i]) },
       };
 
