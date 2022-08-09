@@ -21,7 +21,7 @@ function Home() {
     for (let i = 0; i < kanjiArr.length; i++) {
       const options = {
         method: "GET",
-        url: "http://localhost:8000/",
+        url: "http://localhost:8000/kanji",
         params: { kanji: encodeURI(kanjiArr[i]) },
       };
 
@@ -183,7 +183,7 @@ function Home() {
 
   function Redirect() {
     if (lor === 1) {
-      navigate("/tekkanji/learn", {
+      navigate("/learn", {
         state: {
           lesson: lesson,
           level: level,
@@ -193,7 +193,7 @@ function Home() {
       });
       console.log("going to learn :D");
     } else if (lor === 2) {
-      navigate("/tekkanji/review", {
+      navigate("/review", {
         state: {
           lesson: lesson,
           level: level,

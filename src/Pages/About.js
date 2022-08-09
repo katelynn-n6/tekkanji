@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function About() {
   let navigate = useNavigate();
   const navigateHome = () => {
-    navigate("/tekkanji");
+    navigate("/");
     document.getElementById("about").style.display = "block";
   };
 

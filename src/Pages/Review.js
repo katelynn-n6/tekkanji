@@ -8,7 +8,7 @@ function Review() {
   // const { lesson, level, kanji, kanjiStr } = state;
 
   let navigate = useNavigate();
-  const navigateHome = () => navigate("/tekkanji");
+  const navigateHome = () => navigate("/");
 
   return (
     <div className="App">

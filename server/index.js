@@ -1,6 +1,5 @@
-const PORT = 8000;
+const PORT = 8000 || process.env.PORT;
 
-const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
@@ -9,7 +8,7 @@ require("dotenv").config();
 const app = express();
 app.use(cors());
 
-app.get("/", (req, res) => {
+app.get("/kanji", (req, res) => {
   var kanji = req.query.kanji;
   const options = {
     method: "GET",
@@ -31,4 +30,4 @@ app.get("/", (req, res) => {
     });
 });
 
-app.listen(PORT, () => console.log(PORT));
+app.listen(PORT, () => console.log(`server started on port ${PORT}`));
