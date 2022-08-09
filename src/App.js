@@ -1,9 +1,9 @@
 //import "./App.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import Learn from "./Pages/Learn";
-import Home from "./Pages/Home";
-import Review from "./Pages/Review";
-import About from "./Pages/About";
+import Learn from "./pages/Learn";
+import Home from "./pages/Home";
+import Review from "./pages/Review";
+import About from "./pages/About";
 import React from "react";
 
 function App() {
