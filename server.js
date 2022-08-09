@@ -8,6 +8,17 @@ require("dotenv").config();
 const app = express();
 app.use(cors());
 
+if (process.env.NODE_ENV === "production") {
+  // Exprees will serve up production assets
+  app.use(express.static("./build"));
+
+  // Express serve up index.html file if it doesn't recognize route
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "build", "index.html"));
+  });
+}
+
 app.get("/kanji", (req, res) => {
   var kanji = req.query.kanji;
   const options = {
@@ -29,16 +40,5 @@ app.get("/kanji", (req, res) => {
       console.error(error);
     });
 });
-
-if (process.env.NODE_ENV === "production") {
-  // Exprees will serve up production assets
-  app.use(express.static("/build"));
-
-  // Express serve up index.html file if it doesn't recognize route
-  const path = require("path");
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "build", "index.html"));
-  });
-}
 
 app.listen(PORT, () => console.log(`server started on port ${PORT}`));
