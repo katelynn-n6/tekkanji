@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/tekkanji/static/css/main.5bdda7b6.css",
-    "main.js": "/tekkanji/static/js/main.21bfe7e1.js",
-    "static/js/787.c4e7f8f9.chunk.js": "/tekkanji/static/js/787.c4e7f8f9.chunk.js",
-    "index.html": "/tekkanji/index.html",
-    "main.5bdda7b6.css.map": "/tekkanji/static/css/main.5bdda7b6.css.map",
-    "main.21bfe7e1.js.map": "/tekkanji/static/js/main.21bfe7e1.js.map",
-    "787.c4e7f8f9.chunk.js.map": "/tekkanji/static/js/787.c4e7f8f9.chunk.js.map"
+    "main.css": "/static/css/main.3f29cee5.css",
+    "main.js": "/static/js/main.ecf3e841.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
+    "index.html": "/index.html",
+    "main.3f29cee5.css.map": "/static/css/main.3f29cee5.css.map",
+    "main.ecf3e841.js.map": "/static/js/main.ecf3e841.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5bdda7b6.css",
-    "static/js/main.21bfe7e1.js"
+    "static/css/main.3f29cee5.css",
+    "static/js/main.ecf3e841.js"
   ]
 }
