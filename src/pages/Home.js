@@ -4,6 +4,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+import load from "../load.gif";
+
 //
 
 function Home() {
@@ -12,24 +14,25 @@ function Home() {
   const [lesson, setLesson] = useState(0);
   const [lor, setLor] = useState(0);
   const [kanji, setKanji] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [kanjiReal, setKanjiReal] = useState([]);
 
-  //const PORT = process.env.PORT || 8000;
-
-  const getKanji = () => {
+  const getKanji = async () => {
     let newReal = [];
     let kanjiArr = kanji.split("");
+    setIsLoading(true);
     for (let i = 0; i < kanjiArr.length; i++) {
       const options = {
         method: "GET",
         /* `${process.env.REACT_APP_URL}:${PORT} */
-        url: "/kanji",
+        // "http://localhost:8000"
+        url: "http://localhost:8000/kanji",
         params: { kanji: encodeURI(kanjiArr[i]) },
       };
       console.log("we half-did it");
 
-      axios
+      await axios
         .request(options)
         .then(function (response) {
           //console.log(response.data);
@@ -39,91 +42,40 @@ function Home() {
           console.error(error);
         });
     }
+    setIsLoading(false);
     setKanjiReal(newReal);
   };
+
+  const kanjiMap = new Map([
+    ["5", "田中日本山上下人"],
+    ["6A", "一二三四五六七八九十"],
+    ["6B", "学生先私外大小"],
+    ["7", "今時月火水木金土曜半分週毎年間何"],
+    ["8", "行来帰食飲見聞読書子川夜朝午後前"],
+    ["9", "百千万円新古少白買右左長売言話国語"],
+    ["10", "元気入休住出会持高校仕事電車社員"],
+    ["11", "男女口目耳手足名父母兄弟姉妹家族"],
+    ["12", "東京西南北道雨雪思立文作旅予定約自"],
+    ["13", "度好近明起牛映画町連市所勉強有友次"],
+    ["14", "物鳥料理特安飯肉悪体空港着同海昼"],
+    ["15", "物鳥料理特安飯肉悪体空港着同海昼"],
+    ["16", "昔神彼代留親切英店去急乗当音医者"],
+    ["17", "死意味注夏魚寺広転借走建地場通"],
+    ["18", "供世界全部始以考開屋方運動教室"],
+    ["19", "歳習主結婚集発表品字活写真歩野"],
+    ["20", "的力洋服堂授業試験貸図館終宿題"],
+    ["21", "春秋冬花様不漢卒工研究質問多"],
+    ["22", "春秋冬花様不漢卒工研究質問多"],
+    ["23", "盗降信経台風犬重初若送幸計遅配"],
+    ["24", "記銀回夕黒用守末待残番駅説案内忘"],
+    ["25", "顔情怒変相横比化違悲調査果感答"],
+  ]);
 
   let navigate = useNavigate();
 
   function whichKanji() {
-    switch (lesson) {
-      // JAPN 1001
-      case "5":
-        setKanji("田中日本山上下人");
-        break;
-      case "6A":
-        setKanji("一二三四五六七八九十");
-        break;
-      case "6B":
-        setKanji("学生先私外大小");
-        break;
-
-      // JAPN 1002
-      case "7":
-        setKanji("今時月火水木金土曜半分週毎年間何");
-        break;
-      case "8":
-        setKanji("行来帰食飲見聞読書子川夜朝午後前");
-        break;
-      case "9":
-        setKanji("百千万円新古少白買右左長売言話国語");
-        break;
-      case "10":
-        setKanji("元気入休住出会持高校仕事電車社員");
-        break;
-      case "11":
-        setKanji("男女口目耳手足名父母兄弟姉妹家族");
-        break;
-
-      //JAPN 2001
-      case "12":
-        setKanji("東京西南北道雨雪思立文作旅予定約自");
-        break;
-      case "13":
-        setKanji("度好近明起牛映画町連市所勉強有友次");
-        break;
-      case "14":
-        setKanji("薬楽早病院使働別歌紙赤青色々正天知");
-        break;
-      case "15":
-        setKanji("物鳥料理特安飯肉悪体空港着同海昼");
-        break;
-      case "16":
-        setKanji("昔神彼代留親切英店去急乗当音医者");
-        break;
-
-      // JAPN 2002
-      case "17":
-        setKanji("死意味注夏魚寺広転借走建地場通");
-        break;
-      case "18":
-        setKanji("供世界全部始以考開屋方運動教室");
-        break;
-      case "19":
-        setKanji("歳習主結婚集発表品字活写真歩野");
-        break;
-      case "20":
-        setKanji("的力洋服堂授業試験貸図館終宿題");
-        break;
-      case "21":
-        setKanji("春秋冬花様不漢卒工研究質問多");
-        break;
-
-      // JAPN 3001
-      case "22":
-        setKanji("皿声茶止枚両無払心笑絶対痛最続");
-        break;
-      case "23":
-        setKanji("盗降信経台風犬重初若送幸計遅配");
-        break;
-      case "24":
-        setKanji("記銀回夕黒用守末待残番駅説案内忘");
-        break;
-      case "25":
-        setKanji("顔情怒変相横比化違悲調査果感答");
-        break;
-
-      default:
-        console.log("err");
+    if (lesson) {
+      setKanji(kanjiMap.get(lesson));
     }
   }
 
@@ -192,7 +144,6 @@ function Home() {
           lesson: lesson,
           level: level,
           kanji: kanjiReal,
-          kanjiStr: kanji,
         },
       });
       console.log("going to learn :D");
@@ -202,7 +153,6 @@ function Home() {
           lesson: lesson,
           level: level,
           kanji: kanjiReal,
-          kanjiStr: kanji,
         },
       });
       console.log("going to review D:");
@@ -310,8 +260,14 @@ function Home() {
       </div>
 
       <div>
-        <button onClick={Redirect} className="leggo" id="leggo">
-          <b>行きましょう！</b>
+        <button
+          disabled={isLoading}
+          onClick={Redirect}
+          className="leggo"
+          id="leggo"
+        >
+          {isLoading && <img width="20" src={load} alt="loading..." />}
+          {!isLoading && <b>始めましょう！</b>}
         </button>
       </div>
 

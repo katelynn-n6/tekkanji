@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 function Learn() {
   const { state } = useLocation();
-  const { lesson, level, kanji, kanjiStr } = state;
+  const { lesson, level, kanji } = state;
 
   let navigate = useNavigate();
   const navigateHome = () => navigate("/");
@@ -18,7 +18,7 @@ function Learn() {
       function reset(v) {
         v.addEventListener("ended", myHandler, false);
         function myHandler(e) {
-          console.log("ended");
+          // console.log("ended");
           setTimeout(function () {
             v.play();
           }, 3000);
@@ -31,12 +31,11 @@ function Learn() {
     }
   };
 
-  const move = () => {
-    setIndex(index + 1);
-  };
-
-  const moveBack = () => {
-    setIndex(index - 1);
+  const move = (idx) => {
+    setIndex(idx);
+    document.getElementById(index).style.backgroundColor = "transparent";
+    // previous index
+    document.getElementById(idx).style.backgroundColor = "lightblue";
   };
 
   const toggleEngJpn = (idx, num) => {
@@ -51,6 +50,10 @@ function Learn() {
   const playAudio = (idx, num) => {
     document.getElementById("audio" + idx + num).play();
   };
+
+  useEffect(() => {
+    document.getElementById(0).style.backgroundColor = "lightblue";
+  }, []);
 
   useEffect(() => {
     var videos = document.getElementsByClassName("stroke");
@@ -80,13 +83,22 @@ function Learn() {
 
   return (
     <div className="App">
+      <h3>
+        JAPN {level} - L{lesson}
+      </h3>
       <div>
-        <p>
-          {" you chose L"}
-          {lesson} and you are in JAPN {level}
-          {"! "}
-        </p>
-        <p>the kanji in this lesson are: {kanjiStr}</p>
+        {kanji.map((item, idx) => {
+          return (
+            <button
+              id={idx}
+              key={idx}
+              className="link"
+              onClick={() => move(idx)}
+            >
+              {item.kanji.character}
+            </button>
+          );
+        })}
       </div>
       <div className="box-a-box">
         {kanji.map((item, idx) => {
@@ -126,14 +138,14 @@ function Learn() {
                         <div className="ex">
                           <button
                             className="play-btn"
-                            onClick={(e) => playAudio(idx, i)}
+                            onClick={() => playAudio(idx, i)}
                           >
                             {"▶"}
                           </button>
                           <div
                             className="ex-jpn"
                             id={"jpn" + idx + i}
-                            onClick={(e) => toggleEngJpn(idx, i)}
+                            onClick={() => toggleEngJpn(idx, i)}
                           >
                             {ex.japanese}
                           </div>
@@ -158,13 +170,11 @@ function Learn() {
         })}
       </div>
       <div>
-        <button id="back" className="learn-btn" onClick={moveBack}>
+        <button id="back" className="learn-btn" onClick={() => move(index - 1)}>
           {"<"}
         </button>
-
         <button onClick={navigateHome}> home </button>
-
-        <button id="fwd" className="learn-btn" onClick={move}>
+        <button id="fwd" className="learn-btn" onClick={() => move(index + 1)}>
           {">"}
         </button>
       </div>

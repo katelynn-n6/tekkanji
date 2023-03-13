@@ -10,7 +10,7 @@ app.use(cors());
 
 app.get("/kanji", (req, res) => {
   var kanji = req.query.kanji;
-  console.log("we actually did it");
+  //console.log("we actually did it");
   const options = {
     method: "GET",
     url: "https://kanjialive-api.p.rapidapi.com/api/public/kanji/" + kanji,
