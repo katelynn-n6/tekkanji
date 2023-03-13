@@ -27,7 +27,7 @@ function Home() {
         method: "GET",
         /* `${process.env.REACT_APP_URL}:${PORT} */
         // "http://localhost:8000"
-        url: "http://localhost:8000/kanji",
+        url: "/kanji",
         params: { kanji: encodeURI(kanjiArr[i]) },
       };
       console.log("we half-did it");
