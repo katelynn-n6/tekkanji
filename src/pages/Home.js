@@ -12,7 +12,7 @@ function Home() {
   const [lessons, setLessons] = useState([]);
   const [level, setLevel] = useState(0);
   const [lesson, setLesson] = useState(0);
-  const [lor, setLor] = useState(0);
+  const [textbook, setTextbook] = useState(0);
   const [kanji, setKanji] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -30,7 +30,8 @@ function Home() {
         url: "/kanji",
         params: { kanji: encodeURI(kanjiArr[i]) },
       };
-      console.log("we half-did it");
+      //console.log("we half-did it");
+      //console.log(options);
 
       await axios
         .request(options)
@@ -46,7 +47,7 @@ function Home() {
     setKanjiReal(newReal);
   };
 
-  const kanjiMap = new Map([
+  const gtKanjiMap = new Map([
     ["5", "田中日本山上下人"],
     ["6A", "一二三四五六七八九十"],
     ["6B", "学生先私外大小"],
@@ -71,59 +72,115 @@ function Home() {
     ["25", "顔情怒変相横比化違悲調査果感答"],
   ]);
 
+  const genkiMap = new Map([
+    ["3", "一二三四五六七八九十百千万円時"],
+    ["4", "日本人月火水木金土曜上下中半"],
+    ["5", "山川元気天私今田女男見行食飲"],
+    ["6", "東西南北口出右左分先生大学外国"],
+    ["7", "京子小会社父母高校毎語文帰入"],
+    ["8", "員新聞作仕事電車休言読思次何"],
+    ["9", "午後前名白雨書友間家話少古知来"],
+    ["10", "住正年売買町長道雪立自夜朝持"],
+    ["11", "手紙好近明病院映画歌市所勉強有旅"],
+    ["12", "昔々神早起牛使働連別度赤青色"],
+    ["13", "物鳥料理特安飯肉悪体同着空港昼海"],
+    ["14", "彼代留族親切英店去急乗当音楽医者"],
+    ["15", "死意味注夏魚寺広足転借走場建地通"],
+    ["16", "供世界全部始週考開屋方運動教室以"],
+    ["17", "野習主歳集発表品写真字活結婚歩"],
+    ["18", "目的洋服堂力授業試験貸図館終宿題"],
+    ["19", "春秋冬花様不姉兄漢卒工研究質問多"],
+    ["20", "皿声茶止枚両無払心笑絶対痛最続"],
+    ["21", "信経台風犬重初若送幸計遅配弟妹"],
+    ["22", "記銀回夕黒用末待残駅番説案内忘守"],
+    ["23", "顔悲怒違変比情感調査果化横相答"],
+  ]);
+
+  const lessonMap = new Map([
+    [
+      1001,
+      [
+        ["5", "6A", "6B"],
+        ["3", "4", "5"],
+      ],
+    ],
+    [
+      1002,
+      [
+        ["7", "8", "9", "10", "11"],
+        ["6", "7", "8", "9"],
+      ],
+    ],
+    [
+      2001,
+      [
+        ["12", "13", "14", "15", "16"],
+        ["10", "11", "12", "13", "14"],
+      ],
+    ],
+    [
+      2002,
+      [
+        ["17", "18", "19", "20", "21"],
+        ["15", "16", "17", "18", "19"],
+      ],
+    ],
+    [
+      3001,
+      [
+        ["22", "23", "24", "25"],
+        ["20", "21", "22", "23"],
+      ],
+    ],
+  ]);
+
   let navigate = useNavigate();
 
   function whichKanji() {
     if (lesson) {
-      setKanji(kanjiMap.get(lesson));
+      if (textbook === 0) {
+        setKanji(gtKanjiMap.get(lesson));
+      } else {
+        setKanji(genkiMap.get(lesson));
+      }
     }
   }
 
-  const classClick = (event, num) => {
+  const classClick = (e, num) => {
     setLevel(num);
-    toggleColor(event, "classOpt");
-    if (num === 1001) {
-      setLessons(["5", "6A", "6B"]);
-    } else if (num === 1002) {
-      setLessons(["7", "8", "9", "10", "11"]);
-    } else if (num === 2001) {
-      setLessons(["12", "13", "14", "15", "16"]);
-    } else if (num === 2002) {
-      setLessons(["17", "18", "19", "20", "21"]);
-    } else if (num === 3001) {
-      setLessons(["22", "23", "24", "25"]);
-    }
+    setLessons(lessonMap.get(num)[textbook]);
+    toggleColor(e, "classOpt");
+    document.getElementById("textbook").style.visibility = "visible";
+  };
+
+  const textbookClick = (e, num) => {
+    setTextbook(num);
+    setLessons(lessonMap.get(level)[num]);
+    toggleColor(e, "textbookOpt");
+    toggleColor(e, "lessonOpt");
     document.getElementById("lesson").style.visibility = "visible";
   };
 
-  const lessonClick = (event, num) => {
+  const lessonClick = (e, num) => {
     setLesson(num);
-    toggleColor(event, "lessonOpt");
-    document.getElementById("lor").style.visibility = "visible";
+    toggleColor(e, "lessonOpt");
+    document.getElementById("begin").style.visibility = "visible";
   };
 
-  const lorClick = (event, num) => {
-    setLor(num);
-    toggleColor(event, "lorOpt");
-    document.getElementById("leggo").style.visibility = "visible";
-  };
-
-  const toggleColor = (event, option) => {
+  const toggleColor = (e, option) => {
     var btn = document.getElementsByClassName(option);
     for (let i = 0; i < btn.length; i++) {
       btn[i].classList.remove("active");
     }
-    event.currentTarget.classList.add("active");
+    e.currentTarget.classList.add("active");
     if (option === "classOpt") {
-      toggleColor(event, "lessonOpt");
+      toggleColor(e, "lessonOpt");
     }
   };
 
   const showLessons = () => {
-    let string = "1";
     for (let i = 0; i < lessons.length; i++) {
-      document.getElementById(string).innerText = "L" + lessons[i];
-      string += "1";
+      document.getElementById(i).innerText = "L" + lessons[i];
     }
   };
 
@@ -137,124 +194,94 @@ function Home() {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [kanjiReal]);
 
-  function Redirect() {
-    if (lor === 1) {
-      navigate("/learn", {
-        state: {
-          lesson: lesson,
-          level: level,
-          kanji: kanjiReal,
-        },
-      });
-      console.log("going to learn :D");
-    } else if (lor === 2) {
-      navigate("/review", {
-        state: {
-          lesson: lesson,
-          level: level,
-          kanji: kanjiReal,
-        },
-      });
-      console.log("going to review D:");
-    }
-  }
-
   useEffect(() => {
     showLessons();
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [level]);
+  }, [lessons]);
 
   useEffect(() => {
     whichKanji();
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lesson]);
 
+  function Redirect() {
+    navigate("/learn", {
+      state: {
+        lesson: lesson,
+        level: level,
+        kanji: kanjiReal,
+      },
+    });
+    console.log("going to learn :D");
+  }
+
   return (
     <div className="App">
       <div className="class">
-        <div>which class?</div>
+        <div>class?</div>
         <div className="classOptions">
-          <button
-            className="classOpt"
-            onClick={(event) => classClick(event, 1001)}
-          >
-            japn 1001
-          </button>
-          <button
-            className="classOpt"
-            onClick={(event) => classClick(event, 1002)}
-          >
-            japn 1002
-          </button>
-          <button
-            className="classOpt"
-            onClick={(event) => classClick(event, 2001)}
-          >
-            japn 2001
-          </button>
-          <button
-            className="classOpt"
-            onClick={(event) => classClick(event, 2002)}
-          >
-            japn 2002
-          </button>
-          <button
-            className="classOpt"
-            onClick={(event) => classClick(event, 3001)}
-          >
-            japn 3001
-          </button>
+          {[1001, 1002, 2001, 2002, 3001].map((c) => {
+            return (
+              <button
+                key={c}
+                className="classOpt"
+                onClick={(e) => classClick(e, c)}
+              >{`japn ${c}`}</button>
+            );
+          })}
         </div>
-        <div className="lesson" id="lesson">
-          <div>which lesson?</div>
 
-          <div className="lessonOptions">
+        <div className="textbook" id="textbook">
+          <div>textbook?</div>
+          <div className="classOptions">
             <button
-              id="1"
-              className="lessonOpt"
-              onClick={(event) => lessonClick(event, lessons[0])}
-            ></button>
+              className="textbookOpt"
+              onClick={(e) => {
+                textbookClick(e, 0);
+              }}
+            >
+              GT online
+            </button>
             <button
-              id="11"
-              className="lessonOpt"
-              onClick={(event) => lessonClick(event, lessons[1])}
-            ></button>
-            <button
-              id="111"
-              className="lessonOpt"
-              onClick={(event) => lessonClick(event, lessons[2])}
-            ></button>
-            {!(level === 1001) && (
-              <button
-                id="1111"
-                className="lessonOpt"
-                onClick={(event) => lessonClick(event, lessons[3])}
-              ></button>
-            )}
-            {!(level === 3001) && !(level === 1001) && (
-              <button
-                id="11111"
-                className="lessonOpt"
-                onClick={(event) => lessonClick(event, lessons[4])}
-              ></button>
-            )}
+              className="textbookOpt"
+              onClick={(e) => {
+                textbookClick(e, 1);
+              }}
+            >
+              Genki (3rd)
+            </button>
           </div>
         </div>
 
-        <div className="lor" id="lor">
-          <div>learn or review?</div>
-          <div className="classOptions">
-            <button
-              className="lorOpt"
-              onClick={(event) => {
-                lorClick(event, 1);
-              }}
-            >
-              learn
-            </button>
-            <button className="lorOpt" onClick={(event) => lorClick(event, 2)}>
-              review
-            </button>
+        <div className="lesson" id="lesson">
+          <div>lesson?</div>
+          <div className="lessonOptions">
+            {[0, 1, 2].map((l) => {
+              return (
+                <button
+                  id={l}
+                  key={l}
+                  className="lessonOpt"
+                  onClick={(e) => lessonClick(e, lessons[l])}
+                ></button>
+              );
+            })}
+            {level !== 1001 && (
+              <button
+                id={3}
+                className="lessonOpt"
+                onClick={(e) => lessonClick(e, lessons[3])}
+              ></button>
+            )}
+            {level !== 3001 &&
+              level !== 1001 &&
+              !(textbook === 1 && level === 1002) && (
+                <button
+                  id={4}
+                  className="lessonOpt"
+                  onClick={(e) => lessonClick(e, lessons[4])}
+                ></button>
+              )}
           </div>
         </div>
       </div>
@@ -263,31 +290,13 @@ function Home() {
         <button
           disabled={isLoading}
           onClick={Redirect}
-          className="leggo"
-          id="leggo"
+          className="begin"
+          id="begin"
         >
           {isLoading && <img width="20" src={load} alt="loading..." />}
           {!isLoading && <b>始めましょう！</b>}
         </button>
       </div>
-
-      {/* 
-      {lor === 1 && kanji !== "" && (
-        <div className="learn">
-          いらっしゃいませ〜! you chose L{lesson} and you are in JAPN {level}
-          {". "}
-          {console.log(kanjiReal)}
-          {/* 
-          {kanjiReal.map((item, idx) => {
-            return (
-              <div className="kanji-box" key={idx}>
-                <h3>character: {item}</h3>
-              </div>
-            );
-          })} }
-        </div>
-      )}
- */}
     </div>
   );
 }
