@@ -65,7 +65,7 @@ function Learn() {
 
   const lastStroke = (item, idx) => {
     var video = document.getElementById(`vid${idx}`);
-    var icon = document.getElementById("playPause");
+    var icon = document.getElementById(`playPause${idx}`);
     var timings = item.kanji.strokes.timings;
     video.pause();
     if (video.currentTime !== 0) {
