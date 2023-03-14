@@ -17,11 +17,6 @@ function App() {
   return (
     <div>
       <div className="App">
-        <div className="header">
-          <h1>tekkanji</h1>
-          <h2>テック + かんじ</h2>
-        </div>
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/learn" element={<Learn />} />

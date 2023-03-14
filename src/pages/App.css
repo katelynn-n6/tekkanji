@@ -7,6 +7,7 @@
 
 .header {
   margin-top: 40px;
+  margin-bottom: 30px;
 }
 
 button {
@@ -56,10 +57,10 @@ button.link {
   margin: 0px;
   margin-top: 0px;
   box-sizing: none;
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   font-weight: 1;
-  font-size: 15px;
+  font-size: 20px;
   box-sizing: 0;
   text-align: center;
   line-height: 1;
@@ -102,9 +103,46 @@ button.link {
   align-items: center;
 }
 
-.video {
-  float: left;
+.icon {
+  width: 25px;
+  height: 25px;
+}
+
+.video-box {
   width: 50%;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ctrl {
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 0px;
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  border: transparent;
+  box-shadow: none;
+}
+
+.icon {
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  color: light;
+}
+
+.icon:hover {
+  filter: invert(78%) sepia(13%) saturate(1324%) hue-rotate(153deg)
+    brightness(75%) contrast(96%); /* light blue */
+  cursor: pointer;
+}
+
+.ctrl:hover {
+  cursor: initial;
+  background-color: transparent;
 }
 
 .info {
@@ -125,7 +163,7 @@ span {
 .box-a-box {
   align-items: center;
   width: auto;
-  min-height: 400px;
+  min-height: 450px;
   justify-content: center;
   display: flex;
 }

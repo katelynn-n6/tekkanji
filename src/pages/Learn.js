@@ -2,6 +2,11 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+import play from "../assets/play.svg";
+import pause from "../assets/pause.svg";
+import next from "../assets/next.svg";
+import prev from "../assets/prev.svg";
+
 function Learn() {
   const { state } = useLocation();
   const { lesson, level, kanji } = state;
@@ -19,15 +24,58 @@ function Learn() {
         v.addEventListener("ended", myHandler, false);
         function myHandler(e) {
           // console.log("ended");
-          setTimeout(function () {
-            v.play();
-          }, 3000);
+          v.play();
         }
       }
       for (const el of video) {
         reset(el);
       }
       done = !done;
+    }
+  };
+
+  const togglePlayPause = (idx) => {
+    var video = document.getElementById(`vid${idx}`);
+    var icon = document.getElementById("playPause");
+    if (video.paused) {
+      video.play();
+      icon.src = pause;
+    } else {
+      video.pause();
+      icon.src = play;
+    }
+  };
+
+  const nextStroke = (item, idx) => {
+    var video = document.getElementById(`vid${idx}`);
+    var icon = document.getElementById("playPause");
+    var timings = item.kanji.strokes.timings;
+    video.pause();
+    if (video.currentTime !== video.duration) {
+      icon.src = play;
+      for (let i = 0; i < timings.length; i++) {
+        if (video.currentTime + 0.1 < timings[i]) {
+          video.currentTime = timings[i];
+          return;
+        }
+      }
+    }
+    video.currentTime = video.duration;
+  };
+
+  const lastStroke = (item, idx) => {
+    var video = document.getElementById(`vid${idx}`);
+    var icon = document.getElementById("playPause");
+    var timings = item.kanji.strokes.timings;
+    video.pause();
+    if (video.currentTime !== 0) {
+      icon.src = play;
+      for (let i = timings.length; i > 0; i--) {
+        if (video.currentTime - 0.1 > timings[i] && i !== 0) {
+          video.currentTime = timings[i];
+          return;
+        }
+      }
     }
   };
 
@@ -58,12 +106,8 @@ function Learn() {
   useEffect(() => {
     var videos = document.getElementsByClassName("stroke");
     for (let i = 0; i < videos.length; i++) {
-      videos[i].playbackRate = 1.25;
       videos[i].pause();
-      videos[i].currentTime = 0;
-      if (i === index) {
-        videos[i].play();
-      }
+      videos[i].currentTime = 50;
     }
     var boxes = document.getElementsByClassName("full-box");
     document.getElementById("fwd").style.visibility = "visible";
@@ -83,6 +127,9 @@ function Learn() {
 
   return (
     <div className="App">
+      <div className="header">
+        <h1>テッカンジ</h1>
+      </div>
       <h3>
         JAPN {level} - L{lesson}
       </h3>
@@ -105,15 +152,51 @@ function Learn() {
           return (
             <div className="full-box" key={idx}>
               <div className="kanji-box">
-                <div className="video">
-                  <video
-                    muted
-                    className="stroke"
-                    onPlay={(e) => replay(e)}
-                    width="190px"
-                  >
-                    <source src={item.kanji.video.mp4} type="video/mp4" />
-                  </video>
+                <div className="video-box">
+                  <div className="video">
+                    <video
+                      muted
+                      id={"vid" + idx}
+                      className="stroke"
+                      onPlay={(e) => replay(e)}
+                      width="190px"
+                    >
+                      <source src={item.kanji.video.mp4} type="video/mp4" />
+                    </video>
+                  </div>
+                  <div className="controls">
+                    <button
+                      className="ctrl"
+                      onClick={() => lastStroke(item, idx)}
+                    >
+                      <img
+                        className="icon"
+                        src={prev}
+                        alt="play or pause button"
+                      ></img>
+                    </button>
+                    <button
+                      className="ctrl"
+                      onClick={() => togglePlayPause(idx)}
+                    >
+                      <img
+                        id="playPause"
+                        className="icon"
+                        src={play}
+                        alt="play or pause button"
+                      ></img>
+                    </button>
+                    <button
+                      className="ctrl"
+                      onClick={() => nextStroke(item, idx)}
+                    >
+                      <img
+                        className="icon"
+                        src={next}
+                        alt="play or pause button"
+                      ></img>
+                    </button>
+                  </div>
                 </div>
                 <div className="info">
                   <p>
