@@ -13,7 +13,10 @@ function About() {
 
   return (
     <div className="App">
-      <h3>about</h3>
+      <div className="header">
+        <h1>テッカンジ</h1>
+      </div>
+      <h2>about</h2>
       <div className="about-info">
         <div>
           <p>
@@ -22,6 +25,13 @@ function About() {
               Katelynn Nguyen
             </a>
           </p>
+          <p>
+            <i>
+              <b>suggestions?</b> reach out to me: katelynn@gatech.edu or open a
+              github issue
+            </i>
+          </p>
+          <br></br>
           <p>
             {"supported by the "}
             <a href="https://app.kanjialive.com/api/docs">KanjiAlive API</a>
@@ -33,6 +43,7 @@ function About() {
             </a>{" "}
             taught in JAPN 1001-3001 at Georgia Tech
           </p>
+          <p>and the kanji taught through Genki I-II (3rd edition)</p>
         </div>
       </div>
       <div>

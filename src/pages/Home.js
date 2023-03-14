@@ -4,7 +4,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import load from "../load.gif";
+import load from "../assets/load.gif";
 
 //
 
@@ -27,7 +27,7 @@ function Home() {
         method: "GET",
         /* `${process.env.REACT_APP_URL}:${PORT} */
         // "http://localhost:8000"
-        url: "/kanji",
+        url: "http://localhost:8000/kanji",
         params: { kanji: encodeURI(kanjiArr[i]) },
       };
       //console.log("we half-did it");
@@ -217,6 +217,10 @@ function Home() {
 
   return (
     <div className="App">
+      <div className="header">
+        <h1>tekkanji</h1>
+        <h2>テック + かんじ</h2>
+      </div>
       <div className="class">
         <div>class?</div>
         <div className="classOptions">
