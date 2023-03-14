@@ -36,7 +36,7 @@ function Learn() {
 
   const togglePlayPause = (idx) => {
     var video = document.getElementById(`vid${idx}`);
-    var icon = document.getElementById("playPause");
+    var icon = document.getElementById(`playPause${idx}`);
     if (video.paused) {
       video.play();
       icon.src = pause;
@@ -48,7 +48,7 @@ function Learn() {
 
   const nextStroke = (item, idx) => {
     var video = document.getElementById(`vid${idx}`);
-    var icon = document.getElementById("playPause");
+    var icon = document.getElementById(`playPause${idx}`);
     var timings = item.kanji.strokes.timings;
     video.pause();
     if (video.currentTime !== video.duration) {
@@ -180,7 +180,7 @@ function Learn() {
                       onClick={() => togglePlayPause(idx)}
                     >
                       <img
-                        id="playPause"
+                        id={`playPause${idx}`}
                         className="icon"
                         src={play}
                         alt="play or pause button"
