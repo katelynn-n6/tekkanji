@@ -101,14 +101,17 @@ function Learn() {
 
   useEffect(() => {
     document.getElementById(0).style.backgroundColor = "lightblue";
-  }, []);
-
-  useEffect(() => {
     var videos = document.getElementsByClassName("stroke");
     for (let i = 0; i < videos.length; i++) {
       videos[i].pause();
       videos[i].currentTime = 50;
     }
+  }, []);
+
+  useEffect(() => {
+    document.getElementById(`vid${index}`).pause();
+    document.getElementById(`vid${index}`).currentTime = 50;
+    document.getElementById(`playPause${index}`).src = play;
     var boxes = document.getElementsByClassName("full-box");
     document.getElementById("fwd").style.visibility = "visible";
     document.getElementById("back").style.visibility = "visible";
