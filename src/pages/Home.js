@@ -19,9 +19,7 @@ function Home() {
   const [kanjiReal, setKanjiReal] = useState([]);
 
   const PORT =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:8000"
-      : "http://tekkanji.up.railway.app";
+    process.env.NODE_ENV === "development" ? "http://localhost:8000" : "";
 
   const getKanji = async () => {
     let newReal = [];
