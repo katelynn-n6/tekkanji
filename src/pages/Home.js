@@ -18,6 +18,11 @@ function Home() {
 
   const [kanjiReal, setKanjiReal] = useState([]);
 
+  const PORT =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:8000"
+      : "http://tekkanji.up.railway.app";
+
   const getKanji = async () => {
     let newReal = [];
     let kanjiArr = kanji.split("");
@@ -27,7 +32,7 @@ function Home() {
         method: "GET",
         /* `${process.env.REACT_APP_URL}:${PORT} */
         // "http://localhost:8000"
-        url: "/kanji",
+        url: `${PORT}/kanji`,
         params: { kanji: encodeURI(kanjiArr[i]) },
       };
       //console.log("we half-did it");

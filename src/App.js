@@ -7,8 +7,6 @@ import About from "./pages/About";
 import React from "react";
 
 function App() {
-  //<h3>a kanji learning system for JAPN at Georgia Tech</h3>
-
   let navigate = useNavigate();
   const moveAbout = () => {
     navigate("/about");
